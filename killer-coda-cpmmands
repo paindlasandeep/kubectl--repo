@@ -1,0 +1,16 @@
+root@controlplane:~$ mkdir harness
+root@controlplane:~$ cd harness/
+root@controlplane:~/harness$ vim deplyment.yml
+root@controlplane:~/harness$ kubectl create -f deployment.yml
+error: the path "deployment.yml" does not exist
+root@controlplane:~/harness$ kubectl create -f deplyment.yml
+deployment.apps/frontend created
+root@controlplane:~/harness$ kubectl get deployments
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+frontend   4/4     4            4           16s
+root@controlplane:~/harness$ kubectl get replica set
+error: the server doesn't have a resource type "replica"
+root@controlplane:~/harness$ kubectl get replicasets
+NAME                  DESIRED   CURRENT   READY   AGE
+frontend-75cc9ff8b5   4         4         4       33s
+root@controlplane:~/harness$ 
