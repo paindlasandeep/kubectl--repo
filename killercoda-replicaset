@@ -1,0 +1,58 @@
+root@controlplane:~/harness$ vim relicaset.yml
+root@controlplane:~/harness$ kubectl apply -f relicaset.yml
+replicaset.apps/frontend created
+root@controlplane:~/harness$ kubectl get replicasets
+NAME                  DESIRED   CURRENT   READY   AGE
+frontend              4         4         4       35s
+frontend-75cc9ff8b5   4         4         4       13m
+root@controlplane:~/harness$ kubectl scale --replicas=6 -f relicaset.yml
+replicaset.apps/frontend scaled
+root@controlplane:~/harness$ kubectl get replicasets
+NAME                  DESIRED   CURRENT   READY   AGE
+frontend              6         6         6       86s
+frontend-75cc9ff8b5   4         4         4       14m
+root@controlplane:~/harness$ kubectl scale --replicas=4 replicaset frontend
+replicaset.apps/frontend scaled
+root@controlplane:~/harness$ kubectl get replicasets
+NAME                  DESIRED   CURRENT   READY   AGE
+frontend              4         4         4       2m16s
+frontend-75cc9ff8b5   4         4         4       15m
+root@controlplane:~/harness$ kubectl delete replicaset frontend
+replicaset.apps "frontend" deleted from default namespace
+root@controlplane:~/harness$ kubectl get replicasets
+NAME                  DESIRED   CURRENT   READY   AGE
+frontend-75cc9ff8b5   4         4         4       16m
+root@controlplane:~/harness$ ^C
+root@controlplane:~/harness$ kubectl describe replicaset frontend-75cc9ff8b5 
+Name:           frontend-75cc9ff8b5
+Namespace:      default
+Selector:       app=myapp,pod-template-hash=75cc9ff8b5
+Labels:         app=myapp
+                pod-template-hash=75cc9ff8b5
+Annotations:    deployment.kubernetes.io/desired-replicas: 4
+                deployment.kubernetes.io/max-replicas: 5
+                deployment.kubernetes.io/revision: 1
+Controlled By:  Deployment/frontend
+Replicas:       4 current / 4 desired
+Pods Status:    4 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=myapp
+           pod-template-hash=75cc9ff8b5
+  Containers:
+   nginx:
+    Image:         nginx
+    Port:          <none>
+    Host Port:     <none>
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  16m   replicaset-controller  Created pod: frontend-75cc9ff8b5-dvkmz
+  Normal  SuccessfulCreate  16m   replicaset-controller  Created pod: frontend-75cc9ff8b5-fczfl
+  Normal  SuccessfulCreate  16m   replicaset-controller  Created pod: frontend-75cc9ff8b5-99ltd
+  Normal  SuccessfulCreate  16m   replicaset-controller  Created pod: frontend-75cc9ff8b5-d5nzc
+root@controlplane:~/harness$ 
