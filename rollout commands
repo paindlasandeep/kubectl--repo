@@ -1,7 +1,11 @@
+#same deployement yaml used to update the already existing yaml with upgradation of images
+this is called rolling update it is default kubernets deployment strategy.
+
+
 root@controlplane:~/harness$ vim deplyment.yml
 root@controlplane:~/harness$ kubectl apply -f deployment.yml
 error: the path "deployment.yml" does not exist
-root@controlplane:~/harness$ kubectl apply -f deplyment.yml
+root@controlplane:~/harness$ kubectl apply -f deplyment.yml>>>apply is used for changes on existing pods
 Warning: resource deployments/frontend is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
 deployment.apps/frontend configured
 root@controlplane:~/harness$ kubectl get rs
@@ -29,5 +33,5 @@ REVISION  CHANGE-CAUSE
 1         <none>
 2         <none>
 
-root@controlplane:~/harness$ kubectl rollout status deployment/frontend
-Waiting for deployment "frontend" rollout to finish: 2 out of 4 new replicas have been updated...
+root@controlplane:~/harness$ kubectl rollout status deployment/frontend >>>>>rollout status
+root@controlplane:~/harness$ kubectl rollout undo deployment frontend>>>>>>>>>>rollback
