@@ -35,3 +35,5 @@ REVISION  CHANGE-CAUSE
 
 root@controlplane:~/harness$ kubectl rollout status deployment/frontend >>>>>rollout status
 root@controlplane:~/harness$ kubectl rollout undo deployment frontend>>>>>>>>>>rollback
+#Alternate command to update the deployment
+root@controlplane:~/harness$ kubectl set image deployment/frontend nginx:nginx:1.7.1
