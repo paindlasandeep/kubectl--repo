@@ -1,3 +1,4 @@
+#Node port
 apiVersion: v1
 kind: Service
 metadata:
@@ -11,3 +12,25 @@ spec:
       port: 80          # Service port
       targetPort: 80    # Container port
       nodePort: 30007   # External port (optional)
+      
+#Create ClusterIP Service YAML
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-clusterip-service
+spec:
+  type: ClusterIP   # optional (default)
+  selector:
+    app: my-app     # must match deployment label
+  ports:
+    - protocol: TCP
+      port: 80          # Service port
+      targetPort: 80    # Container port
+
+#Instead of YAML, you can create it quickly via command
+
+kubectl expose deployment my-app-deployment \
+  --type=ClusterIP \
+  --port=80 \
+  --target-port=80 \
+  --name=my-clusterip-service
