@@ -34,3 +34,16 @@ kubectl expose deployment my-app-deployment \
   --port=80 \
   --target-port=80 \
   --name=my-clusterip-service
+  
+#Load balancer
+ apiVersion: v1
+kind: Service
+metadata:
+  name: my-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+    - port: 80
+      targetPort: 8080 
