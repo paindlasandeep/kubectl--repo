@@ -181,3 +181,20 @@ controlplane   Ready    control-plane   25d   v1.35.1   172.30.1.2    <none>    
 node01         Ready    <none>          25d   v1.35.1   172.30.2.2    <none>        Ubuntu 24.04.4 LTS   6.8.0-117-generic   containerd://2.2.1
 root@controlplane:~/harness$ ^C
 root@controlplane:~/harness$ 
+
+#load balancer
+
+root@controlplane:~$ mkdir harness
+root@controlplane:~$ cd harness
+root@controlplane:~/harness$ vim deployment.yml
+root@controlplane:~/harness$ kubectl apply -f deployment.yml
+deployment.apps/my-app created
+root@controlplane:~/harness$ vim loadbalncer.yml
+root@controlplane:~/harness$ kubectl apply -f loadbalncer.yml
+service/my-loadbalancer-service created
+root@controlplane:~/harness$ kubectl get svc my-loadbalancer-service
+NAME                      TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+my-loadbalancer-service   LoadBalancer   10.100.104.104   <pending>     80:30628/TCP   21s
+root@controlplane:~/harness$ kubectl get svc my-loadbalancer-service
+NAME                      TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+my-loadbalancer-service   LoadBalancer   10.100.104.104   <pending>     80:30628/TCP   68s
